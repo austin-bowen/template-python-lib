@@ -2,13 +2,18 @@
 set -euo pipefail
 
 read -rp "Library name: " LIB_NAME
+
+echo "Python versions: https://devguide.python.org/versions/"
 read -rp "Minimum Python version: " PYTHON_VERSION
 
 uv init --lib --name "$LIB_NAME" --python "$PYTHON_VERSION"
 
-uv venv venv --python "$PYTHON_VERSION"
+uv venv --python "$PYTHON_VERSION"
 
 uv add --dev pytest pytest-cov ruff
 
-git add -A
+echo git add -A
 echo git commit -m "Init ${LIB_NAME} library"
+
+echo
+echo "Done! ${LIB_NAME} is ready. Activate the venv with: source venv/bin/activate"
