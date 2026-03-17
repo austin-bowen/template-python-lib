@@ -13,6 +13,15 @@ uv init \
   --description "$LIB_DESCRIPTION" \
   --python "$PYTHON_VERSION"
 
+# Add license and URLs to pyproject.toml
+sed -i "s/^readme = .*/&\nlicense = { file = \"LICENSE\" }/" pyproject.toml
+cat >> pyproject.toml << EOF
+
+[project.urls]
+Homepage = "https://github.com/austin-bowen/${LIB_NAME}"
+Issues = "https://github.com/austin-bowen/${LIB_NAME}/issues"
+EOF
+
 uv sync
 
 uv add --dev pytest pytest-cov ruff
