@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+ruff check --select I
+ruff format --check
+bin/test
