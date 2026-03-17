@@ -3,5 +3,6 @@ set -euo pipefail
 
 exit_code=0
 bin/unit-test || exit_code=$?
+echo
 bin/integration-test || exit_code=$?
 exit $exit_code

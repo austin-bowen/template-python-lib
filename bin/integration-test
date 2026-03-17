@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+echo "=== integration tests ==="
 pytest tests/integration --cov --cov-report=term-missing "$@" || [ $? -eq 5 ]

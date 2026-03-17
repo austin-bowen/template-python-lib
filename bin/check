@@ -3,6 +3,8 @@ set -euo pipefail
 
 exit_code=0
 ruff check --select I || exit_code=$?
+echo
 ruff format --check || exit_code=$?
+echo
 bin/test || exit_code=$?
 exit $exit_code
