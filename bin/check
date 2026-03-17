@@ -7,4 +7,5 @@ echo
 ruff format --check || exit_code=$?
 echo
 bin/test || exit_code=$?
+[ $exit_code -eq 0 ] && echo "All checks passed!"
 exit $exit_code

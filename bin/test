@@ -5,4 +5,5 @@ exit_code=0
 bin/unit-test || exit_code=$?
 echo
 bin/integration-test || exit_code=$?
+[ $exit_code -eq 0 ] && echo "All tests passed!"
 exit $exit_code
