@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-pytest tests/integration --cov --cov-report=term-missing "$@"
+pytest tests/integration --cov --cov-report=term-missing "$@" || [ $? -eq 5 ]

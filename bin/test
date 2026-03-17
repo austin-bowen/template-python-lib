@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-bin/unit-test
-bin/integration-test
+exit_code=0
+bin/unit-test || exit_code=$?
+bin/integration-test || exit_code=$?
+exit $exit_code

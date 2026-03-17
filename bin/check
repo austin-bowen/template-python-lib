@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-ruff check --select I
-ruff format --check
-bin/test
+exit_code=0
+ruff check --select I || exit_code=$?
+ruff format --check || exit_code=$?
+bin/test || exit_code=$?
+exit $exit_code
