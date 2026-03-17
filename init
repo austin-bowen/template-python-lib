@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+read -rp "Library name: " LIB_NAME
+read -rp "Minimum Python version: " PYTHON_VERSION
+
+uv init --lib --name "$LIB_NAME" --python "$PYTHON_VERSION"
+
+uv venv venv --python "$PYTHON_VERSION"
+
+uv add --dev pytest pytest-cov ruff
+
+git add -A
+echo git commit -m "Init ${LIB_NAME} library"
