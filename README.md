@@ -1,6 +1,7 @@
-# template-python-lib
-A template Python library
+# foo
+foo bar
 
-Setup instructions:
-1. Clone the repo under a new name.
-2. Run: `./init`
+## Installation
+```
+pip install foo
+```

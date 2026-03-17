@@ -1,6 +1,7 @@
 *.pyc
 .coverage
 .idea/
+.pypirc
 .pytest_cache/
 .ruff_cache/
 .venv/
