@@ -12,8 +12,8 @@ uv venv --python "$PYTHON_VERSION"
 
 uv add --dev pytest pytest-cov ruff
 
-echo git add -A
+git add -A
 echo git commit -m "Init ${LIB_NAME} library"
 
 echo
-echo "Done! ${LIB_NAME} is ready. Activate the venv with: source venv/bin/activate"
+echo "Done! ${LIB_NAME} is ready. Activate the venv with: source .venv/bin/activate"

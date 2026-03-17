@@ -1,8 +1,8 @@
-venv/
-uv.lock
-__pycache__/
 *.pyc
+.coverage
 .idea/
 .pytest_cache/
-.coverage
 .ruff_cache/
+.venv/
+__pycache__/
+uv.lock
