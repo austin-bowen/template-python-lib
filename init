@@ -13,13 +13,12 @@ uv init \
   --description "$LIB_DESCRIPTION" \
   --python "$PYTHON_VERSION"
 
-# Update README.md: replace header and first line with lib name and description
-README_TAIL=$(tail -n +3 README.md)
-printf '# %s\n%s\n\n%s\n' "$LIB_NAME" "$LIB_DESCRIPTION" "$README_TAIL" > README.md
-
-uv venv --python "$PYTHON_VERSION"
+uv sync
 
 uv add --dev pytest pytest-cov ruff
+
+# Update README.md
+printf '# %s\n%s\n' "$LIB_NAME" "$LIB_DESCRIPTION" > README.md
 
 git add -A
 echo git commit -m "Init ${LIB_NAME} library"
