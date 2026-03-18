@@ -2,9 +2,9 @@
 set -euo pipefail
 
 exit_code=0
-ruff check --select I || exit_code=$?
+uv run ruff check --select I || exit_code=$?
 echo
-ruff format --check || exit_code=$?
+uv run ruff format --check || exit_code=$?
 echo
 bin/test || exit_code=$?
 [ $exit_code -eq 0 ] && echo "All checks passed!"
