@@ -1,0 +1,17 @@
+name: Check
+
+on: [push, pull_request]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [__PYTHON_VERSIONS__]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - run: uv sync
+      - run: bin/check
