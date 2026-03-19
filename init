@@ -10,14 +10,30 @@ read -rp "Python versions to support, lowest first (e.g. 3.10 3.11 3.12): " PYTH
 IFS=' ' read -ra PYTHON_VERSIONS <<< "$PYTHON_VERSIONS_INPUT"
 MIN_VERSION="${PYTHON_VERSIONS[0]}"
 
+# This will create src/ and pyproject.toml
 uv init \
   --lib \
   --name "$LIB_NAME" \
   --description "$LIB_DESCRIPTION" \
   --python "$MIN_VERSION"
 
-# Add license and URLs to pyproject.toml
+# Add license, classifiers, and URLs to pyproject.toml
 sed -i "s/^readme = .*/&\nlicense = { file = \"LICENSE\" }/" pyproject.toml
+
+CLASSIFIERS_TMP=$(mktemp)
+{
+    printf 'classifiers = [\n'
+    printf '    "License :: OSI Approved :: MIT License",\n'
+    printf '    "Operating System :: OS Independent",\n'
+    printf '    "Programming Language :: Python",\n'
+    for v in "${PYTHON_VERSIONS[@]}"; do
+        printf '    "Programming Language :: Python :: %s",\n' "$v"
+    done
+    printf ']\n'
+} > "$CLASSIFIERS_TMP"
+sed -i "/^dependencies = \[\]/r $CLASSIFIERS_TMP" pyproject.toml
+rm "$CLASSIFIERS_TMP"
+
 cat >> pyproject.toml << EOF
 
 [project.urls]
@@ -25,11 +41,11 @@ Homepage = "https://github.com/austin-bowen/${LIB_NAME}"
 Issues = "https://github.com/austin-bowen/${LIB_NAME}/issues"
 EOF
 
+# This creates the .venv and adds dev dependencies
 uv sync
-
 uv add --dev pytest pytest-cov ruff
 
-# Create GitHub Actions workflow
+# Create GitHub Actions workflow to run `bin/check`
 VERSIONS_JSON=$(printf '"%s", ' "${PYTHON_VERSIONS[@]}" | sed 's/, $//')
 sed -i "s/__PYTHON_VERSIONS__/${VERSIONS_JSON}/" .github/workflows/check.yml.template
 git mv .github/workflows/check.yml.template .github/workflows/check.yml
