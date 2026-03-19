@@ -5,13 +5,16 @@ read -rp "Library name: " LIB_NAME
 read -rp "Library description: " LIB_DESCRIPTION
 
 echo "Python versions: https://devguide.python.org/versions/"
-read -rp "Minimum Python version: " PYTHON_VERSION
+read -rp "Python versions to support, lowest first (e.g. 3.10 3.11 3.12): " PYTHON_VERSIONS_INPUT
+
+IFS=' ' read -ra PYTHON_VERSIONS <<< "$PYTHON_VERSIONS_INPUT"
+MIN_VERSION="${PYTHON_VERSIONS[0]}"
 
 uv init \
   --lib \
   --name "$LIB_NAME" \
   --description "$LIB_DESCRIPTION" \
-  --python "$PYTHON_VERSION"
+  --python "$MIN_VERSION"
 
 # Add license and URLs to pyproject.toml
 sed -i "s/^readme = .*/&\nlicense = { file = \"LICENSE\" }/" pyproject.toml
@@ -25,6 +28,11 @@ EOF
 uv sync
 
 uv add --dev pytest pytest-cov ruff
+
+# Create GitHub Actions workflow
+VERSIONS_JSON=$(printf '"%s", ' "${PYTHON_VERSIONS[@]}" | sed 's/, $//')
+sed -i "s/__PYTHON_VERSIONS__/${VERSIONS_JSON}/" .github/workflows/check.yml.template
+git mv .github/workflows/check.yml.template .github/workflows/check.yml
 
 # Update README.md
 printf '# %s\n%s\n\n## Installation\n```\npip install %s\n```\n' \
