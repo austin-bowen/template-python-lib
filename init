@@ -60,4 +60,10 @@ printf '# %s\n%s\n\n## Installation\n```\npip install %s\n```\n' \
 git add -A
 
 echo
+read -rp "Commit changes? [y/N] " DO_COMMIT
+if [[ "${DO_COMMIT,,}" == "y" ]]; then
+    git commit -m "Init ${LIB_NAME} library"
+fi
+
+echo
 echo "Done! ${LIB_NAME} is ready. Activate the venv with: source .venv/bin/activate"
