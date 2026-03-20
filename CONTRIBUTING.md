@@ -16,15 +16,15 @@ source .venv/bin/activate
 
 ## Scripts
 
-| Script                 | Description                                             |
-|------------------------|---------------------------------------------------------|
-| `bin/check`            | Run all checks (linting, formatting, tests); used by CI |
-| `bin/test`             | Run all tests (unit + integration)                      |
-| `bin/unit-test`        | Run unit tests with coverage                            |
-| `bin/integration-test` | Run integration tests with coverage                     |
-| `bin/format`           | Auto-fix import sorting and formatting                  |
-| `bin/build`            | Build the package                                       |
-| `bin/publish`          | Publish the package to PyPI                             |
+| Script                 | What it does                                                            |
+|------------------------|-------------------------------------------------------------------------|
+| `bin/format`           | Auto-fixes lint issues and formats all code with ruff                   |
+| `bin/check`            | Runs lint check, format check, and all tests; reports overall pass/fail |
+| `bin/test`             | Runs unit and integration tests with coverage                           |
+| `bin/unit-test`        | Runs only unit tests with coverage                                      |
+| `bin/integration-test` | Runs only integration tests with coverage                               |
+| `bin/build`            | Builds the distribution package (`uv build`)                            |
+| `bin/publish`          | Publishes the package to PyPI (`uv publish`)                            |
 
 ## Managing Dependencies
 
