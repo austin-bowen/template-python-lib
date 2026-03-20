@@ -14,6 +14,18 @@ Activate the virtual environment:
 source .venv/bin/activate
 ```
 
+## Scripts
+
+| Script                 | Description                                             |
+|------------------------|---------------------------------------------------------|
+| `bin/check`            | Run all checks (linting, formatting, tests); used by CI |
+| `bin/test`             | Run all tests (unit + integration)                      |
+| `bin/unit-test`        | Run unit tests with coverage                            |
+| `bin/integration-test` | Run integration tests with coverage                     |
+| `bin/format`           | Auto-fix import sorting and formatting                  |
+| `bin/build`            | Build the package                                       |
+| `bin/publish`          | Publish the package to PyPI                             |
+
 ## Managing Dependencies
 
 ### Add a dependency
