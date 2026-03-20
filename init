@@ -59,6 +59,22 @@ printf '# %s\n%s\n\n## Installation\n```\npip install %s\n```\n' \
   "$LIB_NAME" \
   > README.md
 
+# Create pre-commit hook to run format and check
+cat > .git/hooks/pre-commit << 'EOF'
+#!/usr/bin/env bash
+
+echo "Formatting..."
+bin/format
+git add -u
+
+echo "Running checks..."
+if ! bin/check; then
+    echo "Warning: checks failed, but commit will proceed."
+fi
+exit 0
+EOF
+chmod +x .git/hooks/pre-commit
+
 # Delete this init script
 git rm init
 
