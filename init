@@ -65,7 +65,7 @@ cat > .git/hooks/pre-commit << 'EOF'
 
 echo "Formatting..."
 bin/format
-git add -u
+git diff --name-only --cached | xargs -r git add
 
 echo "Running checks..."
 if ! bin/check; then
